@@ -42,8 +42,17 @@ def run_tests():
 
     if another_location.is_unvisited():
         print("This place is unvisited")
-    elif another_location.is_visited():
+    else:
         print("This place is visited")
+
+    # Test if place is important
+    print("Test if place is important:")
+    place = Place("Malagar", "Spain", 1, False)
+    print(place)
+    if place.is_important():
+        print("This place is important")
+    else:
+        print("Place is not important")
 
 
 
