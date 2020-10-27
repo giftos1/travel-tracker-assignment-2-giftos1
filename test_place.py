@@ -23,9 +23,17 @@ def run_tests():
         print("This place is unvisited")
     elif new_place.is_visited():
         print("This place is visited")
-    # TODO: Write tests to show this initialisation works
 
-    # TODO: Add more tests, as appropriate, for each method
+    # Test if place is visited
+    print("Test if place is visited:")
+    another_place = Place("Malagar", "Spain", 1, "v")
+    print(another_place)
+
+    if another_place.is_unvisited():
+        print("This place is unvisited")
+    else:
+        print("This place is visited")
+
 
 
 run_tests()
