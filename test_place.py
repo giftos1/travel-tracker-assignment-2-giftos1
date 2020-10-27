@@ -34,6 +34,17 @@ def run_tests():
     else:
         print("This place is visited")
 
+    # Test if place is not visited
+
+    print("Test if place is unvisited:")
+    another_location = Place("Malagar", "Spain", 1, "n")
+    print(another_location)
+
+    if another_location.is_unvisited():
+        print("This place is unvisited")
+    elif another_location.is_visited():
+        print("This place is visited")
+
 
 
 run_tests()
