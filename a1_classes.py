@@ -62,6 +62,7 @@ def display_places(places):
             print(" " + str(places_count), "{}".format(
                 elements))  # prints data without asterix for list containing string v
 
+
 def list_places(places):
     """Call display_places function and print an additional line containing the number count of places"""
     visit_status_count = 0
@@ -106,6 +107,7 @@ def add_new_place(places):
     places.append(new_place_object)  # adds inputs list to the original list of lists(places_data) in main()
     places.sort(key=attrgetter("visited_status", "priority"))  # sorts data appended with new_object that was originally in the list in priority given
 
+
 def mark_as_visited(places):
     """Ask user for number input of a place to mark as visited then error check number if number <=0 and ValueError Check"""
     """Sort places nested list after user marks a place as visited"""
@@ -136,3 +138,20 @@ def mark_as_visited(places):
         while place.is_visited():
             print("No unvisited places")
             call_menu(places)
+
+
+def check_visit_status(place_number, places):
+    while place_number in range(1, len(places) + 1):
+        for element in places:
+            if element.is_visited():  # checks if v is in any of the place object data
+                print("That place is already visited")
+                call_menu(places)
+
+            elif element.is_unvisited():
+                for count, object in enumerate(places):
+                    count += 1
+                    while place_number == count and element.visited_status == "n":  # Checks if number given is equal to the number representing place not visited
+                        print(object.name, "visited!")
+                        object.visited_status = "v"
+                        places.sort(key=attrgetter("visited_status", "priority"))  # Sorts place objects again since visit status changed from "n" to "v"
+                        call_menu(places)
