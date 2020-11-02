@@ -1,2 +1,35 @@
 # Create your Kivy layout in the kv language here
 BoxLayout:
+    orientation: 'horizontal'
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            id: output_label
+            text: "Sort by:"
+        Label:
+            text: "Add New place..."
+        Label:
+            text: "Name"
+        Label:
+            text: "Country"
+        Label:
+            text: "Priority"
+        Button:
+            text: "Add Place"
+            on_release: app.press_add()
+        Button:
+            text: "Clear"
+            on_release: app.clear_fields()
+
+
+    BoxLayout:
+        id: entries_box
+        orientation : 'vertical'
+    Label:
+        text:app.current_place
+
+
+
+
+
