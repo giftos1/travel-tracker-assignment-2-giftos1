@@ -69,14 +69,14 @@ def list_places(places):
     place_count = 0
     for i, place in enumerate(places):
         place_count += 1
-        if place.is_unvisited:  # checks if "n" is in the places list indexes and prints the respective output.
+        if place.is_unvisited():  # checks if "n" is in the places list indexes and prints the respective output.
             visit_status_count += 1
     display_places(places)
 
     print("{} places. You still want to visit ".format(place_count), visit_status_count,
-                  "places.")  # Output to be printed if "n" is in the places list indexes
+          "places.")  # Output to be printed if "n" is in the places list indexes
 
-    #print(place_count, "places. No places left to visit. Why not add a new place?")  # Output to be printed if "n" is not in the place object
+    # print(place_count, "places. No places left to visit. Why not add a new place?")  # Output to be printed if "n" is not in the place object
 
 
 def add_new_place(places):
@@ -103,9 +103,11 @@ def add_new_place(places):
 
         except ValueError:
             print("Invalid input; enter a valid number")
-    new_place_object = Place(name, country, priority, "n") # Stores inputs in a list with added place being put as not visited "n"
+    new_place_object = Place(name, country, priority,
+                             "n")  # Stores inputs in a list with added place being put as not visited "n"
     places.append(new_place_object)  # adds inputs list to the original list of lists(places_data) in main()
-    places.sort(key=attrgetter("visited_status", "priority"))  # sorts data appended with new_object that was originally in the list in priority given
+    places.sort(key=attrgetter("visited_status",
+                               "priority"))  # sorts data appended with new_object that was originally in the list in priority given
 
 
 def mark_as_visited(places):
@@ -141,6 +143,7 @@ def mark_as_visited(places):
 
 
 def check_visit_status(place_number, places):
+    """converts unvisited places to visited"""
     while place_number in range(1, len(places) + 1):
         for element in places:
             if element.is_visited():  # checks if v is in any of the place object data
@@ -148,10 +151,24 @@ def check_visit_status(place_number, places):
                 call_menu(places)
 
             elif element.is_unvisited():
-                for count, object in enumerate(places):
+                for count, place_object in enumerate(places):
                     count += 1
                     while place_number == count and element.visited_status == "n":  # Checks if number given is equal to the number representing place not visited
-                        print(object.name, "visited!")
-                        object.visited_status = "v"
-                        places.sort(key=attrgetter("visited_status", "priority"))  # Sorts place objects again since visit status changed from "n" to "v"
+                        print(place_object.name, "visited!")
+                        place_object.visited_status = "v"
+                        places.sort(key=attrgetter("visited_status",
+                                                   "priority"))  # Sorts place objects again since visit status changed from "n" to "v"
                         call_menu(places)
+
+
+def quit_menu(places):
+    """User choice"Q" results in program printing a goodbye message and writing the elements in the lists of places to the file"""
+
+    element_count = 0
+    for element_count, locations in enumerate(places):
+        element_count += 1
+    print(element_count, "places saved to places.csv")
+    print("Have a nice day :)")
+
+
+main()

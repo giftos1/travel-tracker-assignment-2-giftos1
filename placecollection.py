@@ -1,4 +1,4 @@
-"""..."""
+"""PlaceCollection class"""
 
 
 # Create your PlaceCollection class in this file
@@ -11,9 +11,11 @@ from operator import attrgetter
 class PlaceCollection:
     """PlaceCollection class for loading files, saving files,sorting and adding Place objects"""
     def __init__(self):
+        """Initialise places"""
         self.places = []
 
     def load_places(self, places_file):
+        """Load places from csv and save them into object list"""
         places_file = open(places_file)
         places_reader = csv.reader(places_file)
         for line in places_reader:
@@ -23,15 +25,19 @@ class PlaceCollection:
         return self.places
 
     def sort(self, key):
+        """Sort place objects by key picked then priority"""
         return self.places.sort(key=attrgetter(key, "priority"))
 
     def add_place(self, new_place):
+        """add new place object to list objects"""
         return self.places.append(new_place)
 
     def count_unvisited_places(self):
+        """count numebr of unvisited places"""
         place_count = 0
         for place in self.places:
             if place.is_unvisited():
                 place_count += 1
                 return place_count
+
     pass

@@ -1,7 +1,7 @@
 """
-Name:
-Date:
-Brief Project Description:
+Name: Gift Sydney Ogingo
+Date: 2/11/2020
+Brief Project Description: Kivy TravelTracker app for marking and adding places
 GitHub URL:
 """
 # Create your main program in this file, using the TravelTrackerApp class
@@ -23,10 +23,13 @@ class TravelTrackerApp(App):
     place_information = ListProperty()
 
     def __init__(self, **kwargs):
+        """Construct main app"""
         super().__init__(**kwargs)
         self.places = PlaceCollection().load_places("places.csv")
 
     def build(self):
+        """Build the Kivy GUI.
+        :return: reference to the root Kivy widget"""
         self.title = "TravelTracker"
         self.root = Builder.load_file('app.kv')
         self.create_widgets()
@@ -37,7 +40,7 @@ class TravelTrackerApp(App):
     def create_widgets(self):
         """Create buttons from list of objects"""
         for place in self.places:
-            if place.is_visited():
+            if place.is_visited(): #check if place is visited
                 temp_button = Button(text=str(place) + " (visited)")
             else:
                 temp_button = Button(text=str(place))
@@ -46,7 +49,9 @@ class TravelTrackerApp(App):
             self.root.ids.entries_box.add_widget(temp_button)
 
     def press_entry(self, instance):
+        """Handler for pressing entry buttons"""
         place = instance.place
+        # Update button text and label
         instance.text = str(place) + " (visited)"
         self.current_place = place.name + " visited!"
 
@@ -55,11 +60,13 @@ class TravelTrackerApp(App):
         self.root.ids.output_label.text = PLACES_INFORMATION[place_attribute]
 
     def clear_fields(self):
+        """Clear the text input fields"""
         self.root.ids.added_name.text = ""
         self.root.ids.added_country.text = ""
         self.root.ids.added_priority.text = ""
 
     def count_unvisited_places(self):
+        """Count number of unvisited places"""
         for place in self.places:
             PlaceCollection.count_unvisited_places(place)
 
