@@ -35,6 +35,7 @@ def call_menu(places_data):
     quit_menu(places_data)  # calls this function when uses makes choice "Q"
     exit()
 
+
 def load_places():
     """Read data from file formatted like: name,country,priority,visited or not visited"""
     input_file = open(FILENAME)
@@ -48,3 +49,15 @@ def load_places():
 
         places.sort(key=attrgetter("visited_status", "priority"))
     return places
+
+
+def display_places(places):
+    """Display data nicely according to format given in output"""
+    for places_count, elements in enumerate(places):
+        places_count += 1  # Counts each line in places list
+        if elements.visited_status == "n":
+            print("*" + str(places_count),
+                  "{}".format(elements))  # Prints data with asterix for list containing string n
+        else:
+            print(" " + str(places_count), "{}".format(
+                elements))  # prints data without asterix for list containing string v
