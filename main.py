@@ -13,6 +13,8 @@ from placecollection import PlaceCollection
 from kivy.properties import StringProperty
 from kivy.properties import ListProperty
 
+PLACES_INFORMATION = {'Visited': PlaceCollection().sort("visited"), 'Priority': PlaceCollection().sort("priority"),
+                      'Country': PlaceCollection().sort("country"), 'Name': PlaceCollection().sort('name')}
 
 
 class TravelTrackerApp(App):
@@ -28,7 +30,8 @@ class TravelTrackerApp(App):
         self.title = "TravelTracker"
         self.root = Builder.load_file('app.kv')
         self.create_widgets()
-
+        self.places = sorted(PLACES_INFORMATION.keys())
+        self.current_place = self.places[0]
         return self.root
 
     def create_widgets(self):
@@ -47,7 +50,22 @@ class TravelTrackerApp(App):
         instance.text = str(place) + " (visited)"
         self.current_place = place.name + " visited!"
 
+    def change_place(self, place_attribute):
+        """handle change of spinner selection"""
+        self.root.ids.output_label.text = PLACES_INFORMATION[place_attribute]
 
+    def clear_fields(self):
+        self.root.ids.added_name.text = ""
+        self.root.ids.added_country.text = ""
+        self.root.ids.added_priority.text = ""
+
+    def count_unvisited_places(self):
+        for place in self.places:
+            PlaceCollection.count_unvisited_places(place)
+
+    def press_add(self):
+        """Handler for pressing the add button"""
+        self.root.ids.popup.open()
 
 
 
