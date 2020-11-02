@@ -105,3 +105,34 @@ def add_new_place(places):
     new_place_object = Place(name, country, priority, "n") # Stores inputs in a list with added place being put as not visited "n"
     places.append(new_place_object)  # adds inputs list to the original list of lists(places_data) in main()
     places.sort(key=attrgetter("visited_status", "priority"))  # sorts data appended with new_object that was originally in the list in priority given
+
+def mark_as_visited(places):
+    """Ask user for number input of a place to mark as visited then error check number if number <=0 and ValueError Check"""
+    """Sort places nested list after user marks a place as visited"""
+    """Display "no unvisited places" if user has marked all places as visited"""
+    for number_count, place in enumerate(places):
+        while place.is_unvisited():
+            list_places(places)
+            print("Enter the number of a place to mark as visited")
+            value = False
+            while not value:
+                try:
+
+                    place_number = int(
+                        input(">>>"))  # variable that stores the integer input for a place to be marked as visited
+
+                    while place_number <= 0 or place_number > len(places):
+                        if place_number <= 0:
+                            print("Number must be > 0")
+                            place_number = int(input(">>>"))
+                        else:
+                            print("Invalid place number")
+                            place_number = int(input(">>>"))
+
+                    check_visit_status(place_number, places)
+
+                except ValueError:
+                    print("Invalid input; enter a valid number")
+        while place.is_visited():
+            print("No unvisited places")
+            call_menu(places)
