@@ -163,7 +163,10 @@ def check_visit_status(place_number, places):
 
 def quit_menu(places):
     """User choice"Q" results in program printing a goodbye message and writing the elements in the lists of places to the file"""
-
+    with open("places.csv", "w") as output_file:
+        for place in places:
+            output_file.write("{},{},{},{}".format(place[0], place[1], place[2], place[3] + '\n'))
+        output_file.close()
     element_count = 0
     for element_count, locations in enumerate(places):
         element_count += 1

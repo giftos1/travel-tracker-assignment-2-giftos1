@@ -74,8 +74,6 @@ class TravelTrackerApp(App):
         """Handler for pressing the add button"""
         self.root.ids.popup.open()
 
-
-
     pass
 
 

@@ -33,11 +33,18 @@ class PlaceCollection:
         return self.places.append(new_place)
 
     def count_unvisited_places(self):
-        """count numebr of unvisited places"""
+        """count number of unvisited places"""
         place_count = 0
         for place in self.places:
             if place.is_unvisited():
                 place_count += 1
                 return place_count
+
+    def save_places(self):
+        """Save places in file"""
+        with open("places.csv", "w") as output_file:
+            for place in self.places:
+                output_file.write("{},{},{},{}".format(place[0], place[1], place[2], place[3] + '\n'))
+                output_file.close()
 
     pass
